@@ -1,5 +1,5 @@
 """
-URL configuration for Django_project project.
+URL configuration for task_managment_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from task_managment_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.task_managment_view,  name='index'),
 ]
