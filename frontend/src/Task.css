@@ -1,3 +1,4 @@
+/* Task.css */
 .task-container {
     max-width: 600px;
     margin: 0 auto;
@@ -41,4 +42,49 @@
   
   .task-list button {
     margin-right: 10px;
-  }  
+  }
+  
+  /* Estilos Condicionales */
+  .task-completed {
+    color: green;
+  }
+  
+  .task-incomplete {
+    color: red;
+  }
+  
+  /* Estilos para las pestañas */
+  .task-tabs {
+    margin-bottom: 20px;
+  }
+  
+  .task-tabs button {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .task-tabs button.active {
+    background-color: #b0ce38;
+    color: #fff;
+    border: 1px solid #b0ce38;
+  }
+
+  .task-tabs button:hover
+  {
+    background-color: #a6cb14;
+  }
+
+  .change_state_button button
+  {
+    background-color: #b0ce38;
+  }
+
+  .change_state_button button:hover
+  {
+    background-color: #a6cb14;
+  }
