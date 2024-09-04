@@ -1,90 +1,208 @@
 /* Task.css */
+
+/* Aplicar fuente atractiva globalmente */
+body {
+    font-family: 'Roboto', sans-serif; /* Fuente de Google Fonts; puedes cambiarla según tu preferencia */
+}
+
 .task-container {
-    max-width: 600px;
+    max-width: 800px; /* Ampliar el ancho de la página */
     margin: 0 auto;
-    padding: 20px;
-  }
+    }
   
-  .task-form {
+.task-form {
     display: flex;
     flex-direction: column;
-  }
+}
   
-  .task-form input,
-  .task-form textarea {
+.task-form input,
+.task-form textarea {
     margin-bottom: 10px;
-    padding: 8px;
-  }
+    padding: 10px; /* Aumentar el tamaño del padding para mejor accesibilidad */
+    font-size: 16px; /* Aumentar el tamaño de fuente */
+    border-radius: 4px;
+    border: 1px solid #ddd; /* Añadir borde ligero */
+}
   
-  .task-form button {
+.task-form button {
     margin-top: 10px;
     padding: 10px;
     background-color: #007BFF;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px; /* Bordes redondeados */
     cursor: pointer;
-  }
+    font-size: 16px; /* Aumentar el tamaño de fuente */
+    transition: background-color 0.3s /* Transición animada */
+}
   
-  .task-form button:hover {
+.task-form button:hover {
     background-color: #0056b3;
-  }
+}
   
-  .task-list {
+.task-list {
     list-style: none;
     padding: 0;
-  }
+}
   
-  .task-list li {
+.task-list li {
     border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-  }
+    padding: 15px; /* Aumentar el padding */
+    margin-bottom: 15px; /* Separación entre las tarjetas */
+    background-color: #f9f9f9; /* Fondo ligeramente gris para las tarjetas */
+    border-radius: 8px; /* Bordes redondeados */
+}
   
-  .task-list button {
-    margin-right: 10px;
-  }
+.task-list .task-details {
+    display: flex;
+    flex-direction: column;
+}
   
-  /* Estilos Condicionales */
-  .task-completed {
-    color: green;
-  }
+.task-list .task-details p {
+    margin: 5px 0;
+    font-size: 16px; /* Tamaño de fuente de las tareas */
+}
   
-  .task-incomplete {
-    color: red;
-  }
-  
-  /* Estilos para las pestañas */
-  .task-tabs {
+.task-list .task-status {
+    font-weight: bold;
+    font-size: 16px; /* Tamaño de fuente del estado */
+    padding: 5px; /* Espaciado interno para mejorar la legibilidad */
+    border-radius: 4px;
+    color: #fff; /* Texto blanco */
+}
+
+.task-list .task-status.completed {
+    color: #28A745; /* Verde para completada */
+}
+
+.task-list .task-status.pending {
+    color: red; /* Rosa para pendiente */
+}
+
+/* Botones de acción */
+.task-actions {
+    margin-top: 10px;
+}
+
+.task-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px; /* Bordes redondeados */
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s /* Transición animada */
+}
+
+.task-actions .edit-button {
+    background-color: #FFC107; /* Amarillo más oscuro en hover */
+    margin-right: 5px;
+}
+
+.task-actions .edit-button:hover {
+    background-color: #b99e00; /* Amarillo para el botón de editar */
+}
+
+.task-actions .delete-button {
+    background-color: #DC3545; /* Rojo para el botón de eliminar */
+    margin-right: 5px;
+}
+
+.task-actions .delete-button:hover {
+    background-color: #86010f; /* Rojo más oscuro en hover */
+}
+
+.task-actions .mark-complete-button {
+    background-color: #169eb3; /* Verde para marcar como completada */
+    margin-right: 5px;
+}
+
+.task-actions .mark-complete-button:hover {
+    background-color: #116572; /* Verde más oscuro en hover */
+}
+
+/* Estilos para las pestañas */
+.task-tabs {
     margin-bottom: 20px;
-  }
-  
-  .task-tabs button {
+}
+
+.task-tabs button {
     margin-top: 10px;
     margin-right: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     border: 1px solid #ddd;
     background-color: #f8f9fa;
     cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .task-tabs button.active {
+    border-radius: 20px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: background-color 0.3s /* Transición animada */
+}
+
+.task-tabs button.active {
     background-color: #b0ce38;
     color: #fff;
     border: 1px solid #b0ce38;
-  }
+}
 
-  .task-tabs button:hover
-  {
-    background-color: #a6cb14;
-  }
+.task-tabs button:hover {
+    background-color: #6c8211; /* Efecto de zoom al pasar el ratón */
+    color: white;
+}
 
-  .change_state_button button
-  {
-    background-color: #b0ce38;
-  }
+.add-task-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px; /* Ampliar el tamaño del botón */
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 30px; /* Aumentar el tamaño del ícono */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s; /* Transición animada */
+}
 
-  .change_state_button button:hover
-  {
-    background-color: #a6cb14;
-  }
+.add-task-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px; /* Bordes más redondeados */
+    width: 500px; /* Ampliar el ancho del modal */
+    max-width: 100%;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2
+{
+    text-align: center;
+    font-size: 35px;
+    background-color: #29afb6;
+    border-radius: 8px;
+    color: white;
+    padding: 1%;
+}
