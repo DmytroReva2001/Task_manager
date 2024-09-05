@@ -163,11 +163,11 @@ const Task = () => {
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
       </div>
 
-      <div className="search-bar-form">
+      <div className="filter-bar-form">
       <form onSubmit={handleSearch}>
           <input
             type="text"
-            placeholder="Buscar tarea"
+            placeholder="Buscar..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />

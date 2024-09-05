@@ -207,13 +207,8 @@ h2
     padding: 1%;
 }
 
-.search-bar-form
+.filter-bar-form input
 {
-    text-align: center;
-}
-
-.search-bar-form input
-{
-    border-radius: 8px; /* Bordes más redondeados */
-    padding: 3px;
+    border-radius: 20px; /* Bordes más redondeados */
+    padding: 10px;
 }
