@@ -91,7 +91,8 @@ body {
     color: #fff;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s /* Transición animada */
+    transition: background-color 0.3s; /* Transición animada */
+    margin:10px
 }
 
 .task-actions .edit-button {
@@ -166,6 +167,7 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.3s; /* Transición animada */
+
 }
 
 .add-task-button:hover {
@@ -211,4 +213,64 @@ h2
 {
     border-radius: 20px; /* Bordes más redondeados */
     padding: 10px;
+    margin: 5px;
+}
+
+.search-btn button
+{
+    border-radius: 15px; /* Bordes más redondeados */
+    padding: 7px;
+    margin: 2px;
+    background-color:#29afb6;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.search-btn button:hover
+{
+    background-color: #116572;
+}
+
+/* Estilos para pantallas de tamaño medio */
+@media screen and (max-width: 768px) {
+    .task-container {
+        max-width: 90%; /* Reducir el ancho de la página */
+    }
+
+    .task-list li {
+        padding: 10px; /* Reducir el padding de las tarjetas */
+    }
+
+    .add-task-button {
+        font-size: 24px; /* Reducir el tamaño del ícono en dispositivos móviles */
+    }
+
+    .modal {
+        width: 90%; /* Reducir el ancho del modal en dispositivos móviles */
+    }
+
+    h2 {
+        font-size: 28px; /* Reducir el tamaño del título en dispositivos móviles */
+    }
+}
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media screen and (max-width: 480px) {
+    .task-list li {
+        padding: 5px; /* Reducir aún más el padding de las tarjetas en dispositivos móviles */
+    }
+
+    .add-task-button {
+        width: 50px; /* Reducir el tamaño del botón en dispositivos móviles */
+        height: 50px;
+        font-size: 20px; /* Reducir aún más el tamaño del ícono en dispositivos móviles */
+    }
+
+    .modal {
+        width: 95%; /* Reducir aún más el ancho del modal en dispositivos móviles */
+    }
+
+    h2 {
+        font-size: 24px; /* Reducir aún más el tamaño del título en dispositivos móviles */
+    }
 }

@@ -24,7 +24,7 @@ const Task = () => {
 
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/tasks/')
+    axios.get('http://localhost:8000/api/tasks/')
       .then(res => {
         setTasks(res.data);
       })
@@ -49,7 +49,7 @@ const Task = () => {
     
     if (editingTaskId) {
       // Actualizar tarea existente
-      axios.put(`http://127.0.0.1:8000/api/tasks/${editingTaskId}/`, formData)
+      axios.put(`http://localhost:8000/api/tasks/${editingTaskId}/`, formData)
         .then(res => {
           setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)).sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
@@ -57,7 +57,7 @@ const Task = () => {
         .catch(err => console.error('Error updating task:', err));
     } else {
       // Crear nueva tarea
-      axios.post('http://127.0.0.1:8000/api/tasks/', formData)
+      axios.post('http://localhost:8000/api/tasks/', formData)
         .then(res => {
           setTasks([...tasks, res.data].sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
@@ -72,7 +72,7 @@ const Task = () => {
   };
 
   const handleDelete = id => {
-    axios.delete(`http://127.0.0.1:8000/api/tasks/${id}/`)
+    axios.delete(`http://localhost:8000/api/tasks/${id}/`)
       .then(() => {
         setTasks(tasks.filter(task => task.id !== id));
       })
@@ -82,7 +82,7 @@ const Task = () => {
   const handleComplete = id => {
     const taskToUpdate = tasks.find(task => task.id === id);
     if (taskToUpdate) {
-      axios.put(`http://127.0.0.1:8000/api/tasks/${id}/`, { ...taskToUpdate, completed: !taskToUpdate.completed })
+      axios.put(`http://localhost:8000/api/tasks/${id}/`, { ...taskToUpdate, completed: !taskToUpdate.completed })
         .then(res => {
           setTasks(tasks.map(task => (task.id === id ? res.data : task)));
         })
@@ -125,7 +125,7 @@ const Task = () => {
   };
 
   const handleSearchButtonClick = () => {
-    axios.get('http://127.0.0.1:8000/api/tasks/')
+    axios.get('http://localhost:8000/api/tasks/')
       .then(res => {
         const tasks = res.data;
   
@@ -146,6 +146,21 @@ const Task = () => {
   
         setTasks(filteredTasks);
   
+        // Actualizar los datos de búsqueda en los elementos <p>
+        document.getElementById('searchTerm').innerText = `Búsqueda: ${searchValue}`;
+
+        if(formData.dateFrom && formData.dateTo){
+        document.getElementById('dateRange').innerText = `Desde la fecha: ${formatDate(formData.dateFrom)} | Hasta la fecha: ${formatDate(formData.dateTo)}`;
+        }
+        else if (formData.dateFrom)
+        {
+          document.getElementById('dateRange').innerText = `Desde la fecha: ${formatDate(formData.dateFrom)}`;
+        }
+        else if (formData.dateTo)
+        {
+          document.getElementById('dateRange').innerText = `Hasta la fecha: ${formatDate(formData.dateTo)}`;
+        }
+
         // Limpiar los campos de búsqueda y fechas
         setSearchValue('');
         setFormData({
@@ -159,7 +174,11 @@ const Task = () => {
   };
 
   const restablecerFiltros = () => {
-    axios.get('http://127.0.0.1:8000/api/tasks/')
+
+    document.getElementById('searchTerm').innerText = ``;
+    document.getElementById('dateRange').innerText = ``;
+
+    axios.get('http://localhost:8000/api/tasks/')
       .then(res => {
         const tasks = res.data;
   
@@ -204,6 +223,9 @@ const Task = () => {
         <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active' : ''}>Pendientes</button>
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
+
+        <p id="searchTerm"></p>
+        <p id="dateRange"></p>
       </div>
 
       <div className="filter-bar-form">
@@ -215,18 +237,22 @@ const Task = () => {
         />
         <input
           type="date"
+          placeholder={!formData.dateFrom ? "Fecha desde" : ""}
           value={formData.dateFrom}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
         />
         <input
           type="date"
+          placeholder={!formData.dateFrom ? "Fecha desde" : ""}
           value={formData.dateTo}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
         />
+      </div>
+
+      <div className="search-btn">
         <button onClick={handleSearchButtonClick}>Buscar</button>
         <button onClick={restablecerFiltros}>Restablecer</button>
-      </div>
-      
+      </div>    
       <ul className="task-list">
         {filteredTasks.length ? (
           filteredTasks.map(task => (
