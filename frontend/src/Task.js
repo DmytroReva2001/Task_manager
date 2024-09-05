@@ -42,6 +42,8 @@ const Task = () => {
     });
   };
 
+  const today = new Date().toISOString().split('T')[0];
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validar que los campos obligatorios estén llenos
@@ -243,12 +245,14 @@ const Task = () => {
           placeholder={!formData.dateFrom ? "Fecha desde" : ""}
           value={formData.dateFrom}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
+          min={today} // Establecer la fecha mínima como la fecha actual
         />
         <input
           type="date"
           placeholder={!formData.dateFrom ? "Fecha desde" : ""}
           value={formData.dateTo}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
+          min={formData.dateFrom || today}
         />
       </div>
 
@@ -325,7 +329,8 @@ const Task = () => {
             type="date" 
             name="date" 
             value={formData.date} 
-            onChange={handleInputChange} 
+            onChange={handleInputChange}
+            min={today}
           />
           <label>
             Completada
