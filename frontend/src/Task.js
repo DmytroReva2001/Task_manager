@@ -40,7 +40,7 @@ const Task = () => {
       // Actualizar tarea existente
       axios.put(`http://127.0.0.1:8000/api/tasks/${editingTaskId}/`, formData)
         .then(res => {
-          setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)));
+          setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)).sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
         })
         .catch(err => console.error('Error updating task:', err));
@@ -48,7 +48,7 @@ const Task = () => {
       // Crear nueva tarea
       axios.post('http://127.0.0.1:8000/api/tasks/', formData)
         .then(res => {
-          setTasks([...tasks, res.data]);
+          setTasks([...tasks, res.data].sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
         })
         .catch(err => console.error('Error creating task:', err));
