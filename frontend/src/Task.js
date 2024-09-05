@@ -3,6 +3,10 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import './Task.css';
 
+//var urlConsulta = 'http://localhost:8000/api'
+//var urlConsulta = 'http://192.168.182.131:8000/api'
+var urlApi = 'https://qlf28rf1-8000.uks1.devtunnels.ms/api'
+
 Modal.setAppElement('#root'); // Es necesario para accesibilidad
 
 const Task = () => {
@@ -24,7 +28,7 @@ const Task = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/tasks/')
+    axios.get(urlApi+'/tasks/')
       .then(res => {
         setTasks(res.data);
       })
@@ -49,7 +53,7 @@ const Task = () => {
     
     if (editingTaskId) {
       // Actualizar tarea existente
-      axios.put(`http://localhost:8000/api/tasks/${editingTaskId}/`, formData)
+      axios.put(urlApi+`/tasks/${editingTaskId}/`, formData)
         .then(res => {
           setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)).sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
@@ -57,7 +61,7 @@ const Task = () => {
         .catch(err => console.error('Error updating task:', err));
     } else {
       // Crear nueva tarea
-      axios.post('http://localhost:8000/api/tasks/', formData)
+      axios.post(urlApi+'/tasks/', formData)
         .then(res => {
           setTasks([...tasks, res.data].sort((a, b) => new Date(a.date) - new Date(b.date)));
           closeModal();
@@ -72,7 +76,7 @@ const Task = () => {
   };
 
   const handleDelete = id => {
-    axios.delete(`http://localhost:8000/api/tasks/${id}/`)
+    axios.delete(urlApi+`/tasks/${id}/`)
       .then(() => {
         setTasks(tasks.filter(task => task.id !== id));
       })
@@ -82,7 +86,7 @@ const Task = () => {
   const handleComplete = id => {
     const taskToUpdate = tasks.find(task => task.id === id);
     if (taskToUpdate) {
-      axios.put(`http://localhost:8000/api/tasks/${id}/`, { ...taskToUpdate, completed: !taskToUpdate.completed })
+      axios.put(urlApi+`/tasks/${id}/`, { ...taskToUpdate, completed: !taskToUpdate.completed })
         .then(res => {
           setTasks(tasks.map(task => (task.id === id ? res.data : task)));
         })
@@ -125,7 +129,7 @@ const Task = () => {
   };
 
   const handleSearchButtonClick = () => {
-    axios.get('http://localhost:8000/api/tasks/')
+    axios.get(urlApi+'/tasks/')
       .then(res => {
         const tasks = res.data;
   
@@ -178,7 +182,7 @@ const Task = () => {
     document.getElementById('searchTerm').innerText = ``;
     document.getElementById('dateRange').innerText = ``;
 
-    axios.get('http://localhost:8000/api/tasks/')
+    axios.get(urlApi+'/tasks/')
       .then(res => {
         const tasks = res.data;
   
