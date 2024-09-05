@@ -11,13 +11,17 @@ const Task = () => {
     title: '',
     description: '',
     date: '',
-    completed: false
+    completed: false,
+    dateFrom: '',
+    dateTo: ''
   });
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [activeTab, setActiveTab] = useState('pending');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm] = useState('');
+  const [searchValue, setSearchValue] = useState(''); // Cambiado de searchTerm a searchValue
+
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/tasks/')
@@ -116,20 +120,59 @@ const Task = () => {
     openModal();
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-  
-    // Fetch the tasks again from the server
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
     axios.get('http://127.0.0.1:8000/api/tasks/')
       .then(res => {
         const tasks = res.data;
   
-        // Filter tasks according to the search term
-        const filteredTasks = tasks.filter(task => {
-          return task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase());
+        // Filtrar por término de búsqueda
+        let filteredTasks = tasks.filter(task => {
+          return task.title.toLowerCase().includes(searchValue.toLowerCase()) || task.description.toLowerCase().includes(searchValue.toLowerCase());
         });
   
+        // Filtrar por fecha desde
+        if (formData.dateFrom) {
+          filteredTasks = filteredTasks.filter(task => new Date(task.date) >= new Date(formData.dateFrom));
+        }
+  
+        // Filtrar por fecha hasta
+        if (formData.dateTo) {
+          filteredTasks = filteredTasks.filter(task => new Date(task.date) <= new Date(formData.dateTo));
+        }
+  
         setTasks(filteredTasks);
+  
+        // Limpiar los campos de búsqueda y fechas
+        setSearchValue('');
+        setFormData({
+          ...formData,
+          dateFrom: '',
+          dateTo: ''
+        });
+  
+      })
+      .catch(err => console.error('Error al recibir tareas:', err));
+  };
+
+  const restablecerFiltros = () => {
+    axios.get('http://127.0.0.1:8000/api/tasks/')
+      .then(res => {
+        const tasks = res.data;
+  
+        setTasks(tasks);
+  
+        // Limpiar los campos de búsqueda y fechas
+        setSearchValue('');
+        setFormData({
+          ...formData,
+          dateFrom: '',
+          dateTo: ''
+        });
+  
       })
       .catch(err => console.error('Error al recibir tareas:', err));
   };
@@ -164,14 +207,24 @@ const Task = () => {
       </div>
 
       <div className="filter-bar-form">
-      <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-          />
-        </form>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={searchValue}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="date"
+          value={formData.dateFrom}
+          onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
+        />
+        <input
+          type="date"
+          value={formData.dateTo}
+          onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
+        />
+        <button onClick={handleSearchButtonClick}>Buscar</button>
+        <button onClick={restablecerFiltros}>Restablecer</button>
       </div>
       
       <ul className="task-list">
