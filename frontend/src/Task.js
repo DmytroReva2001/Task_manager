@@ -4,7 +4,6 @@ import Modal from 'react-modal';
 import './Task.css';
 
 //var urlConsulta = 'http://localhost:8000/api'
-//var urlConsulta = 'http://192.168.182.131:8000/api'
 var urlApi = 'https://qlf28rf1-8000.uks1.devtunnels.ms/api'
 
 Modal.setAppElement('#root'); // Es necesario para accesibilidad
