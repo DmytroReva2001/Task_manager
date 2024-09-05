@@ -16,7 +16,8 @@ const Task = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [activeTab, setActiveTab] = useState('pending');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCreating, setIsCreating] = useState(false); // Nuevo estado para controlar la creación
+  const [isCreating, setIsCreating] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/tasks/')
@@ -115,12 +116,35 @@ const Task = () => {
     openModal();
   };
 
-  // Filtrar tareas según la pestaña activa
+  const handleSearch = (e) => {
+    e.preventDefault();
+  
+    // Fetch the tasks again from the server
+    axios.get('http://127.0.0.1:8000/api/tasks/')
+      .then(res => {
+        const tasks = res.data;
+  
+        // Filter tasks according to the search term
+        const filteredTasks = tasks.filter(task => {
+          return task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase());
+        });
+  
+        setTasks(filteredTasks);
+      })
+      .catch(err => console.error('Error al recibir tareas:', err));
+  };
+
   const filteredTasks = tasks.filter(task => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'completed') return task.completed;
-    if (activeTab === 'pending') return !task.completed;
-    return true;
+    if (activeTab === 'all') {
+      return task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+    if (activeTab === 'completed') {
+      return task.completed && (task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+    if (activeTab === 'pending') {
+      return !task.completed && (task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+    return false; // Agregar un return al final por si no se cumple ninguna condición
   });
 
   const formatDate = dateString => {
@@ -138,6 +162,18 @@ const Task = () => {
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
       </div>
+
+      <div className="search-bar-form">
+      <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Buscar tarea"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </form>
+      </div>
+      
       <ul className="task-list">
         {filteredTasks.length ? (
           filteredTasks.map(task => (

@@ -206,3 +206,14 @@ h2
     color: white;
     padding: 1%;
 }
+
+.search-bar-form
+{
+    text-align: center;
+}
+
+.search-bar-form input
+{
+    border-radius: 8px; /* Bordes más redondeados */
+    padding: 3px;
+}
