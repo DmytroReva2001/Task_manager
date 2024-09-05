@@ -36,6 +36,12 @@ const Task = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Validar que los campos obligatorios estén llenos
+    if (!formData.title || !formData.description || !formData.date) {
+      alert('Por favor, rellena todos los campos');
+      return;
+    }
+    
     if (editingTaskId) {
       // Actualizar tarea existente
       axios.put(`http://127.0.0.1:8000/api/tasks/${editingTaskId}/`, formData)
@@ -92,6 +98,7 @@ const Task = () => {
   };
 
   const openModal = () => setIsModalOpen(true);
+  
   const closeModal = () => {
     setIsModalOpen(false);
     resetForm();
@@ -173,6 +180,7 @@ const Task = () => {
         )}
       </ul>
       {/* Modal de Edición / Creación */}
+
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
