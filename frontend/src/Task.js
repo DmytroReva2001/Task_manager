@@ -220,6 +220,14 @@ const Task = () => {
     return `${day}/${month}/${year}`;
   };
 
+  const fetchTasks = () => {
+    axios.get(urlApi + '/tasks/')
+      .then(res => {
+        setTasks(res.data);
+      })
+      .catch(err => console.error('Error al recibir tareas:', err));
+  };
+
   return (
     <div className="task-container">
       <h2>Gestor de tareas</h2>
@@ -228,6 +236,7 @@ const Task = () => {
         <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active' : ''}>Pendientes</button>
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
+        <button onClick={() => fetchTasks()} className={activeTab === 'all' ? 'active' : ''}><img width="10px" alt="refresh" src="https://cdn0.iconfinder.com/data/icons/glyphpack/41/refresh-512.png"></img></button>
 
         <p id="searchTerm"></p>
         <p id="dateRange"></p>
