@@ -253,12 +253,12 @@ const Task = () => {
           type="date"
           value={formData.dateFrom || today}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
-          min={today} 
+          min={today}
           max={formData.dateTo || ''}
         />
         <input
           type="date"
-          value={formData.dateFrom || today}
+          value={formData.dateTo || today}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
           min={formData.dateFrom || today}
         />
