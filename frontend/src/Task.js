@@ -236,7 +236,7 @@ const Task = () => {
         <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active' : ''}>Pendientes</button>
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
-        <button onClick={() => fetchTasks()} className={activeTab === 'all' ? 'active' : ''}><img width="10px" alt="refresh" src="https://cdn0.iconfinder.com/data/icons/glyphpack/41/refresh-512.png"></img></button>
+        <button onClick={() => fetchTasks()}><img width="10px" alt="refresh" src="https://cdn0.iconfinder.com/data/icons/glyphpack/41/refresh-512.png"></img></button>
 
         <p id="searchTerm"></p>
         <p id="dateRange"></p>
@@ -251,15 +251,14 @@ const Task = () => {
         />
         <input
           type="date"
-          placeholder={!formData.dateFrom ? "Fecha desde" : ""}
-          value={formData.dateFrom}
+          value={formData.dateFrom || today}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
-          min={today} // Establecer la fecha mínima como la fecha actual
+          min={today} 
+          max={formData.dateTo || ''}
         />
         <input
           type="date"
-          placeholder={!formData.dateFrom ? "Fecha desde" : ""}
-          value={formData.dateTo}
+          value={formData.dateFrom || today}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
           min={formData.dateFrom || today}
         />
