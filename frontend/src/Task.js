@@ -241,8 +241,8 @@ const Task = () => {
   return (
     <div className="task-container">
       <h2>Gestor de tareas</h2>
-      <button className="refresh-task-button" onClick={() => fetchTasks()}><img alt="refresh" src="https://static.vecteezy.com/system/resources/previews/019/858/805/non_2x/refresh-flat-color-outline-icon-free-png.png"></img></button>
-      <button className="add-task-button" onClick={handleCreateNewTask}>+</button>
+      <p><button className="add-button" onClick={handleCreateNewTask}><img alt="refresh" src="https://static.thenounproject.com/png/961411-200.png"></img></button></p>
+      
       <div className="task-tabs">
         <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active' : ''}>Pendientes</button>
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
@@ -284,6 +284,7 @@ const Task = () => {
       <div className="search-btn">
         <button onClick={handleSearchButtonClick}>Buscar</button>
         <button onClick={restablecerFiltros}>Restablecer</button>
+        <button onClick={() => fetchTasks()}><img alt="refresh" src="https://static.vecteezy.com/system/resources/previews/019/858/805/non_2x/refresh-flat-color-outline-icon-free-png.png"></img></button>
       </div>    
       <ul className="task-list">
         {filteredTasks.length ? (
@@ -292,7 +293,7 @@ const Task = () => {
               <div className="task-details">
                 <p><strong>Título:</strong> {task.title}</p>
                 <p><strong>Descripción:</strong> {task.description}</p>
-                <p><strong>Fecha:</strong> {formatDate(task.date)}</p>
+                <p><strong>Fecha límite:</strong> {formatDate(task.date)}</p>
                 <p className={`task-status ${task.completed ? 'completed' : 'pending'}`}>
                   {task.completed ? 'Completada' : 'Tarea pendiente'}
                 </p>
@@ -350,7 +351,8 @@ const Task = () => {
             value={formData.description} 
             onChange={handleInputChange} 
           />
-          <input 
+          Fecha límite:
+          <input
             type="date" 
             name="date" 
             value={formData.date} 

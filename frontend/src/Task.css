@@ -150,17 +150,11 @@ body {
     color: white;
 }
 
-.add-task-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px; /* Ampliar el tamaño del botón */
-    height: 60px;
+.add-button {
+    width: 50px; /* Ampliar el tamaño del botón */
+    height: 50px;
     border-radius: 50%;
     background-color: #007bff;
-    color: rgb(0, 0, 0);
-    font-size: 30px; /* Aumentar el tamaño del ícono */
-    display: flex;
     align-items: center;
     justify-content: center;
     border: none;
@@ -169,36 +163,12 @@ body {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.refresh-task-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 60px; /* Ampliar el tamaño del botón */
-    height: 60px;
-    border-radius: 50%;
-    background-color: #007bff;
-    color: white;
-    font-size: 30px; /* Aumentar el tamaño del ícono */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s; /* Transición animada */
+.add-button img {
+    width: 30px;
+    height: 30px;
 }
 
-.refresh-task-button img {
-    width: 40px;
-    height: 40px;
-}
-
-.add-task-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
-}
-
-.refresh-task-button:hover {
+.add-button:hover {
     background-color: #0056b3;
     transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
 }
@@ -265,6 +235,12 @@ h2
     background-color: #116572;
 }
 
+.search-btn img
+{
+    width: 15px;
+    height: 15px;
+}
+
 /* Estilos para pantallas de tamaño medio */
 @media screen and (max-width: 768px) {
     .task-container {
@@ -291,6 +267,11 @@ h2
     {
         width: auto;
     }
+
+    .task-form input
+    {
+        width: auto;
+    }
 }
 
 /* Estilos para pantallas pequeñas (móviles) */
@@ -314,6 +295,11 @@ h2
     }
 
     .filter-bar-form input
+    {
+        width: auto;
+    }
+
+    .task-form input
     {
         width: auto;
     }
