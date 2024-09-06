@@ -156,13 +156,15 @@ const Task = () => {
         }
   
         setTasks(filteredTasks);
+        var cantidad = filteredTasks.length;
   
         // Actualizar los datos de búsqueda en los elementos <p>
         document.getElementById('searchTerm').innerText = `Búsqueda: ${searchValue}`;
+        document.getElementById('searchResult').innerText = `Resultados: ${cantidad}`;
 
         if(formData.dateFrom && formData.dateTo){
         document.getElementById('dateRange').innerText = `Desde la fecha: ${formatDate(formData.dateFrom)} | Hasta la fecha: ${formatDate(formData.dateTo)}`;
-        }
+      }
         else if (formData.dateFrom)
         {
           document.getElementById('dateRange').innerText = `Desde la fecha: ${formatDate(formData.dateFrom)}`;
@@ -189,6 +191,7 @@ const Task = () => {
 
     document.getElementById('searchTerm').innerText = ``;
     document.getElementById('dateRange').innerText = ``;
+    document.getElementById('searchResult').innerText= ``;
 
     axios.get(urlApi+'/tasks/')
       .then(res => {
@@ -238,15 +241,16 @@ const Task = () => {
   return (
     <div className="task-container">
       <h2>Gestor de tareas</h2>
+      <button className="refresh-task-button" onClick={() => fetchTasks()}><img alt="refresh" src="https://static.vecteezy.com/system/resources/previews/019/858/805/non_2x/refresh-flat-color-outline-icon-free-png.png"></img></button>
       <button className="add-task-button" onClick={handleCreateNewTask}>+</button>
       <div className="task-tabs">
         <button onClick={() => setActiveTab('pending')} className={activeTab === 'pending' ? 'active' : ''}>Pendientes</button>
         <button onClick={() => setActiveTab('completed')} className={activeTab === 'completed' ? 'active' : ''}>Completadas</button>
         <button onClick={() => setActiveTab('all')} className={activeTab === 'all' ? 'active' : ''}>Todas las tareas</button>
-        <button onClick={() => fetchTasks()}><img width="10px" alt="refresh" src="https://cdn0.iconfinder.com/data/icons/glyphpack/41/refresh-512.png"></img></button>
 
         <p id="searchTerm"></p>
         <p id="dateRange"></p>
+        <strong><p id="searchResult"></p></strong>
       </div>
 
       <div className="filter-bar-form">
@@ -256,19 +260,25 @@ const Task = () => {
           value={searchValue}
           onChange={handleSearchChange}
         />
+
+        <div className='filter-date-bar-form'>
+        <p>Fecha desde: 
         <input
           type="date"
           value={formData.dateFrom}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
           min={today}
           max={formData.dateTo || ''}
-        />
+        /></p>
+
+        <p>Fecha hasta: 
         <input
           type="date"
           value={formData.dateTo}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
           min={formData.dateFrom || today}
-        />
+        /></p>
+        </div>
       </div>
 
       <div className="search-btn">
