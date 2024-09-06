@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import './Task.css';
 
-//var urlConsulta = 'http://localhost:8000/api'
+//var urlApi = 'http://localhost:8000/api'
 var urlApi = 'https://qlf28rf1-8000.uks1.devtunnels.ms/api'
 
 Modal.setAppElement('#root'); // Es necesario para accesibilidad
@@ -23,7 +23,7 @@ const Task = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [searchTerm] = useState('');
-  const [searchValue, setSearchValue] = useState(''); // Cambiado de searchTerm a searchValue
+  const [searchValue, setSearchValue] = useState('');
 
 
   useEffect(() => {
@@ -130,6 +130,12 @@ const Task = () => {
   };
 
   const handleSearchButtonClick = () => {
+
+    if (!searchValue && !formData.dateFrom && !formData.dateTo) {
+      restablecerFiltros();
+      return;
+    }
+    else{
     axios.get(urlApi+'/tasks/')
       .then(res => {
         const tasks = res.data;
@@ -176,6 +182,7 @@ const Task = () => {
   
       })
       .catch(err => console.error('Error al recibir tareas:', err));
+    }
   };
 
   const restablecerFiltros = () => {
@@ -251,14 +258,14 @@ const Task = () => {
         />
         <input
           type="date"
-          value={formData.dateFrom || today}
+          value={formData.dateFrom}
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
           min={today}
           max={formData.dateTo || ''}
         />
         <input
           type="date"
-          value={formData.dateTo || today}
+          value={formData.dateTo}
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
           min={formData.dateFrom || today}
         />
