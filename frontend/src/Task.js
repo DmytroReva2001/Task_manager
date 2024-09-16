@@ -3,8 +3,8 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import './Task.css';
 
-//var urlApi = 'http://localhost:8000/api'
-var urlApi = 'https://qlf28rf1-8000.uks1.devtunnels.ms/api'
+var urlApi = 'http://localhost:8000/api'
+//var urlApi = 'https://qlf28rf1-8000.uks1.devtunnels.ms/api'
 
 Modal.setAppElement('#root'); // Es necesario para accesibilidad
 
