@@ -47,7 +47,7 @@ const Task = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validar que los campos obligatorios estén llenos
-    if (!formData.title || !formData.description || !formData.date) {
+    if (!formData.title || !formData.description || !formData.creationDate || !formData.limitDate) {
       alert('Por favor, rellena todos los campos');
       return;
     }
@@ -56,7 +56,7 @@ const Task = () => {
       // Actualizar tarea existente
       axios.put(urlApi+`/tasks/${editingTaskId}/`, formData)
         .then(res => {
-          setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)).sort((a, b) => new Date(a.date) - new Date(b.date)));
+          setTasks(tasks.map(task => (task.id === editingTaskId ? res.data : task)).sort((a, b) => new Date(a.limitDate) - new Date(b.limitDate)));
           closeModal();
         })
         .catch(err => console.error('Error updating task:', err));
@@ -64,7 +64,7 @@ const Task = () => {
       // Crear nueva tarea
       axios.post(urlApi+'/tasks/', formData)
         .then(res => {
-          setTasks([...tasks, res.data].sort((a, b) => new Date(a.date) - new Date(b.date)));
+          setTasks([...tasks, res.data].sort((a, b) => new Date(a.limitDate) - new Date(b.limitDate)));
           closeModal();
         })
         .catch(err => console.error('Error creating task:', err));
@@ -100,7 +100,8 @@ const Task = () => {
     setFormData({
       title: task.title,
       description: task.description,
-      date: task.date,
+      creationDate: task.creationDate,
+      limitDate: task.limitDate,
       completed: task.completed
     });
     setIsCreating(false);
@@ -293,7 +294,10 @@ const Task = () => {
               <div className="task-details">
                 <p><strong>Título:</strong> {task.title}</p>
                 <p><strong>Descripción:</strong> {task.description}</p>
-                <p><strong>Fecha límite:</strong> {formatDate(task.date)}</p>
+                <p><strong>Fecha de creación:</strong> {formatDate(task.creationDate)}</p>
+                {task.limitDate && (
+                  <p><strong>Fecha límite:</strong> {formatDate(task.limitDate)}</p>
+                )}
                 <p className={`task-status ${task.completed ? 'completed' : 'pending'}`}>
                   {task.completed ? 'Completada' : 'Tarea pendiente'}
                 </p>
@@ -350,12 +354,21 @@ const Task = () => {
             placeholder="Descripción" 
             value={formData.description} 
             onChange={handleInputChange} 
+            style={{ height: '150px' }}
+          />
+          Fecha creación:
+          <input
+            type="date" 
+            name="creationDate" 
+            value={formData.creationDate} 
+            onChange={handleInputChange}
+            min={today}
           />
           Fecha límite:
           <input
             type="date" 
-            name="date" 
-            value={formData.date} 
+            name="limitDate" 
+            value={formData.limitDate} 
             onChange={handleInputChange}
             min={today}
           />
