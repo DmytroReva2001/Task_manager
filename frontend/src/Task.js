@@ -8,12 +8,14 @@ var urlApi = 'http://localhost:8000/api'
 
 Modal.setAppElement('#root'); // Es necesario para accesibilidad
 
+const today = new Date().toISOString().split('T')[0];
+
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    date: '',
+    creationDate: today,
     completed: false,
     dateFrom: '',
     dateTo: ''
@@ -24,7 +26,6 @@ const Task = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [searchTerm] = useState('');
   const [searchValue, setSearchValue] = useState('');
-
 
   useEffect(() => {
     axios.get(urlApi+'/tasks/')
@@ -42,12 +43,10 @@ const Task = () => {
     });
   };
 
-  const today = new Date().toISOString().split('T')[0];
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validar que los campos obligatorios estén llenos
-    if (!formData.title || !formData.description || !formData.creationDate || !formData.limitDate) {
+    if (!formData.title || !formData.description || !formData.creationDate) {
       alert('Por favor, rellena todos los campos');
       return;
     }
@@ -101,7 +100,6 @@ const Task = () => {
       title: task.title,
       description: task.description,
       creationDate: task.creationDate,
-      limitDate: task.limitDate,
       completed: task.completed
     });
     setIsCreating(false);
@@ -117,7 +115,7 @@ const Task = () => {
 
   const resetForm = () => {
     setEditingTaskId(null);
-    setFormData({ title: '', description: '', date: '', completed: false });
+    setFormData({ title: '', description: '', creationDate: today, completed: false });
   };
 
   const handleCreateNewTask = () => {
@@ -266,19 +264,18 @@ const Task = () => {
         <p>Fecha desde: 
         <input
           type="date"
-          value={formData.dateFrom}
+          value={formData.dateFrom || ''} // Asegúrate de que no sea undefined
           onChange={(e) => setFormData({ ...formData, dateFrom: e.target.value })}
-          min={today}
           max={formData.dateTo || ''}
-        /></p>
+        />
 
-        <p>Fecha hasta: 
         <input
           type="date"
-          value={formData.dateTo}
+          value={formData.dateTo || ''} // Asegúrate de que no sea undefined
           onChange={(e) => setFormData({ ...formData, dateTo: e.target.value })}
-          min={formData.dateFrom || today}
-        /></p>
+          min={formData.dateFrom || ''}
+        />
+        </p>
         </div>
       </div>
 
@@ -295,9 +292,6 @@ const Task = () => {
                 <p><strong>Título:</strong> {task.title}</p>
                 <p><strong>Descripción:</strong> {task.description}</p>
                 <p><strong>Fecha de creación:</strong> {formatDate(task.creationDate)}</p>
-                {task.limitDate && (
-                  <p><strong>Fecha límite:</strong> {formatDate(task.limitDate)}</p>
-                )}
                 <p className={`task-status ${task.completed ? 'completed' : 'pending'}`}>
                   {task.completed ? 'Completada' : 'Tarea pendiente'}
                 </p>
@@ -355,22 +349,6 @@ const Task = () => {
             value={formData.description} 
             onChange={handleInputChange} 
             style={{ height: '150px' }}
-          />
-          Fecha creación:
-          <input
-            type="date" 
-            name="creationDate" 
-            value={formData.creationDate} 
-            onChange={handleInputChange}
-            min={today}
-          />
-          Fecha límite:
-          <input
-            type="date" 
-            name="limitDate" 
-            value={formData.limitDate} 
-            onChange={handleInputChange}
-            min={today}
           />
           <label>
             Completada

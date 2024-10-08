@@ -3,9 +3,9 @@ from .models import Task
 from .serializers import TaskSerializer
 
 class TaskListCreate(generics.ListCreateAPIView):
-    queryset = Task.objects.order_by('limitDate')
+    queryset = Task.objects.order_by('-creationDate')
     serializer_class = TaskSerializer
 
 class TaskRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.order_by('limitDate')
+    queryset = Task.objects.order_by('-creationDate')
     serializer_class = TaskSerializer
