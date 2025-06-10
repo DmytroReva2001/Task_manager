@@ -1,128 +1,13 @@
-/* Task.css */
-
-/* Aplicar fuente atractiva globalmente */
+/* Estilos generales para la página */
 body {
-    font-family: 'Roboto', sans-serif; /* Fuente de Google Fonts; puedes cambiarla según tu preferencia */
+    font-family: 'Roboto', sans-serif;
 }
 
 .task-container {
-    max-width: 800px; /* Ampliar el ancho de la página */
+    max-width: 800px;
     margin: 0 auto;
-    }
-  
-.task-form {
-    display: flex;
-    flex-direction: column;
-}
-  
-.task-form input,
-.task-form textarea {
-    margin-bottom: 10px;
-    padding: 10px; /* Aumentar el tamaño del padding para mejor accesibilidad */
-    font-size: 16px; /* Aumentar el tamaño de fuente */
-    border-radius: 4px;
-    border: 1px solid #ddd; /* Añadir borde ligero */
-}
-  
-.task-form button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 20px; /* Bordes redondeados */
-    cursor: pointer;
-    font-size: 16px; /* Aumentar el tamaño de fuente */
-    transition: background-color 0.3s /* Transición animada */
-}
-  
-.task-form button:hover {
-    background-color: #0056b3;
-}
-  
-.task-list {
-    list-style: none;
-    padding: 0;
-}
-  
-.task-list li {
-    border-bottom: 1px solid #ddd;
-    padding: 15px; /* Aumentar el padding */
-    margin-bottom: 15px; /* Separación entre las tarjetas */
-    background-color: #f9f9f9; /* Fondo ligeramente gris para las tarjetas */
-    border-radius: 8px; /* Bordes redondeados */
-}
-  
-.task-list .task-details {
-    display: flex;
-    flex-direction: column;
-}
-  
-.task-list .task-details p {
-    margin: 5px 0;
-    font-size: 16px; /* Tamaño de fuente de las tareas */
-}
-  
-.task-list .task-status {
-    font-weight: bold;
-    font-size: 16px; /* Tamaño de fuente del estado */
-    padding: 5px; /* Espaciado interno para mejorar la legibilidad */
-    border-radius: 4px;
-    color: #fff; /* Texto blanco */
 }
 
-.task-list .task-status.completed {
-    color: #28A745; /* Verde para completada */
-}
-
-.task-list .task-status.pending {
-    color: red; /* Rosa para pendiente */
-}
-
-/* Botones de acción */
-.task-actions {
-    margin-top: 10px;
-}
-
-.task-actions button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 20px; /* Bordes redondeados */
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s; /* Transición animada */
-    margin:10px
-}
-
-.task-actions .edit-button {
-    background-color: #FFC107; /* Amarillo más oscuro en hover */
-    margin-right: 5px;
-}
-
-.task-actions .edit-button:hover {
-    background-color: #b99e00; /* Amarillo para el botón de editar */
-}
-
-.task-actions .delete-button {
-    background-color: #DC3545; /* Rojo para el botón de eliminar */
-    margin-right: 5px;
-}
-
-.task-actions .delete-button:hover {
-    background-color: #86010f; /* Rojo más oscuro en hover */
-}
-
-.task-actions .mark-complete-button {
-    background-color: #169eb3; /* Verde para marcar como completada */
-    margin-right: 5px;
-}
-
-.task-actions .mark-complete-button:hover {
-    background-color: #116572; /* Verde más oscuro en hover */
-}
-
-/* Estilos para las pestañas */
 .task-tabs {
     margin-bottom: 20px;
 }
@@ -134,173 +19,200 @@ body {
     border: 1px solid #ddd;
     background-color: #f8f9fa;
     cursor: pointer;
-    border-radius: 20px; /* Bordes redondeados */
-    font-size: 16px; /* Tamaño de fuente */
-    transition: background-color 0.3s /* Transición animada */
-}
-
-.task-tabs button.active {
-    background-color: #b0ce38;
-    color: #fff;
-    border: 1px solid #b0ce38;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
 .task-tabs button:hover {
-    background-color: #6c8211; /* Efecto de zoom al pasar el ratón */
-    color: white;
-}
-
-.add-button {
-    width: 50px; /* Ampliar el tamaño del botón */
-    height: 50px;
-    border-radius: 50%;
     background-color: #007bff;
-    align-items: center;
-    justify-content: center;
+    color: #fff;
+}
+
+.task-tabs button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-add {
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 24px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.add-button img {
-    width: 30px;
-    height: 30px;
+.task-list {
+    list-style: none;
+    padding: 0;
 }
 
-.add-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+.task-list li {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.task-description {
+    white-space: pre-wrap; /* Esto respeta los saltos de línea */
+}
+
+.task-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-button,
+.delete-button,
+.mark-complete-button,
+.mark-pending-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #ffb800;
+    color: #fff;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.mark-complete-button {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.mark-pending-button {
+    background-color: #17a2b8; /* Color diferente para "Marcar como pendiente" */
+    color: #fff;
+}
+
+.mark-complete-button:hover,
+.mark-pending-button:hover,
+.edit-button:hover,
+.delete-button:hover {
+    opacity: 0.8;
 }
 
 .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
+    width: 60%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 8px; /* Bordes más redondeados */
-    width: 500px; /* Ampliar el ancho del modal */
-    max-width: 100%;
+    border-radius: 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px; /* Altura mínima para el modal */
 }
 
 .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-content {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
-h2
-{
-    text-align: center;
-    font-size: 35px;
-    background-color: #29afb6;
-    border-radius: 8px;
-    color: white;
-    padding: 1%;
+.error-message {
+    color: red;
 }
 
-.filter-bar-form input
-{
-    border-radius: 20px; /* Bordes más redondeados */
+.form-group {
+    margin-bottom: 15px;
+}
+
+input, textarea {
+    margin: 8px 0; /* Agregar margen para no estar pegados a los bordes */
+    width: 100%;
     padding: 10px;
-    margin: 5px;
-    transition: 0.3s background-color;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
-.filter-bar-form input:hover
-{
-    background-color: #b5c2c3;
+textarea {
+    height: 60vh; /* Asegura que el textarea no se desborde */
+    max-height: 60vh;
+    resize: none;
 }
 
-.search-btn button
-{
-    border-radius: 15px; /* Bordes más redondeados */
-    padding: 7px;
-    margin: 2px;
-    background-color:#29afb6;
-    color: white;
-    transition: background-color 0.3s;
+/* Asegura que el modal y su contenido estén correctamente posicionados */
+textarea:focus {
+    border-color: #007bff; /* Cambiar el color del borde al hacer foco */
 }
 
-.search-btn button:hover
-{
-    background-color: #116572;
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-.search-btn img
-{
-    width: 15px;
-    height: 15px;
+.modal input, .modal textarea {
+    margin: 8px 0; /* Añadir margen para separación */
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box; /* Asegura que el padding no afecte al ancho */
 }
 
-/* Estilos para pantallas de tamaño medio */
-@media screen and (max-width: 768px) {
-    .task-container {
-        max-width: 90%; /* Reducir el ancho de la página */
-    }
-
-    .task-list li {
-        padding: 10px; /* Reducir el padding de las tarjetas */
-    }
-
-    .add-task-button {
-        font-size: 24px; /* Reducir el tamaño del ícono en dispositivos móviles */
-    }
-
-    .modal {
-        width: 90%; /* Reducir el ancho del modal en dispositivos móviles */
-    }
-
-    h2 {
-        font-size: 28px; /* Reducir el tamaño del título en dispositivos móviles */
-    }
-
-    .filter-bar-form input
-    {
-        width: auto;
-    }
-
-    .task-form input
-    {
-        width: auto;
-    }
+.btn-save,
+.btn-cancel {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Estilos para pantallas pequeñas (móviles) */
-@media screen and (max-width: 480px) {
-    .task-list li {
-        padding: 5px; /* Reducir aún más el padding de las tarjetas en dispositivos móviles */
-    }
+.btn-save {
+    background-color: #007bff;
+    color: #fff;
+}
 
-    .add-task-button {
-        width: 50px; /* Reducir el tamaño del botón en dispositivos móviles */
-        height: 50px;
-        font-size: 20px; /* Reducir aún más el tamaño del ícono en dispositivos móviles */
-    }
-
-    .modal {
-        width: 95%; /* Reducir aún más el ancho del modal en dispositivos móviles */
-    }
-
-    h2 {
-        font-size: 24px; /* Reducir aún más el tamaño del título en dispositivos móviles */
-    }
-
-    .filter-bar-form input
-    {
-        width: auto;
-    }
-
-    .task-form input
-    {
-        width: auto;
-    }
+.btn-cancel {
+    background-color: #f8f9fa;
+    color: #333;
 }
